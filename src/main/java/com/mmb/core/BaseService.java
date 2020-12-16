@@ -59,6 +59,9 @@ public abstract class BaseService<T> {
             sqlSession.rollback();
             e.printStackTrace();
         }
+        finally {
+            sqlSession.close();
+        }
         return result;
     }
 

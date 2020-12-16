@@ -32,3 +32,5 @@ TestService testService = (TestService) defaultDbRegistry.getBean(TestService.cl
  testService.run(TaskMapper::initTask).forEach(System.err::println);
 ```
 1.所有daoService run方法 会传入一个mapper并自动关闭和提交 session
+## 注意
+目前版本因为只支持实现类直接继承BaseService,和一个Service一个实现

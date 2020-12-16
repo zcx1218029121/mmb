@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public enum DefaultDbRegistry {
     // 枚举单例
     instance;
-
     public DefaultDbRegistry init(String scanPackage, SqlSessionFactory sqlSessionFactory) {
         DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
         try {
@@ -89,20 +88,16 @@ public enum DefaultDbRegistry {
 
         Object instance = beanWrapper.getWrapperInstance();
         Class<?> clazz = beanWrapper.getWrapperClass();
-
-        //只有继承了BaseService 才需要实例化
+        // 只有直接继承BaseService方法才需要 实例化
         if (!BaseService.class.isAssignableFrom(clazz)) {
             return;
         }
-        for (Field field : clazz.getSuperclass().getDeclaredFields()) {
-            if ("sqlSessionFactory".equals(field.getName())) {
-                field.setAccessible(true);
-                try {
-                    field.set(instance, sqlSessionFactory);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+            Field field = clazz.getSuperclass().getDeclaredField("sqlSessionFactory");
+            field.setAccessible(true);
+            field.set(instance, sqlSessionFactory);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
         }
 
 

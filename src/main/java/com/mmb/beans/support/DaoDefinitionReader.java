@@ -12,11 +12,9 @@ import java.util.Objects;
  * @author loafer
  */
 public class DaoDefinitionReader {
-    private List<String> registryBeanClasses = new ArrayList<String>();
-    private String scanPackage;
+    private final List<String> registryBeanClasses = new ArrayList<String>();
 
     public DaoDefinitionReader(String scanPackage) {
-        this.scanPackage = scanPackage;
         doScanner(scanPackage);
     }
 
@@ -84,8 +82,4 @@ public class DaoDefinitionReader {
         return String.valueOf(chars);
     }
 
-    public static void main(String[] args) {
-        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader("com.mmb.test");
-        daoDefinitionReader.loadBeanDefinitions();
-    }
 }

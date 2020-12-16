@@ -40,5 +40,8 @@ public abstract class BaseService<T> {
         }
         return result;
     }
+    public SqlSession getSqlSession(){
+        return sqlSessionFactory.openSession(true);
+    }
 
 }

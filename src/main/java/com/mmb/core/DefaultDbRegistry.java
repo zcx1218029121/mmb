@@ -3,9 +3,11 @@ package com.mmb.core;
 import com.mmb.beans.BeanWrapper;
 import com.mmb.beans.config.BeanDefinition;
 import com.mmb.beans.support.DaoDefinitionReader;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.*;
 
+import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,12 +19,27 @@ import java.util.concurrent.ConcurrentHashMap;
 public enum DefaultDbRegistry {
     // 枚举单例
     instance;
+
     public DefaultDbRegistry init(String scanPackage, SqlSessionFactory sqlSessionFactory) {
         DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
         try {
             doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());
             doCreateBean();
             this.sqlSessionFactory = sqlSessionFactory;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public DefaultDbRegistry init(String scanPackage, String path) {
+        Bug fix
+        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
+        try {
+            doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());
+            doCreateBean();
+            InputStream is = Object.class.getResourceAsStream("/mybatis-config.xml");
+            this.sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
         } catch (Exception e) {
             e.printStackTrace();
         }

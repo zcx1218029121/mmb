@@ -27,7 +27,7 @@ public abstract class BaseService<T> {
 
 
     /**
-     * 自动关闭 mybatis的连接
+     * 自动提交
      */
     public <R> R run(Function<T, R> function) {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
@@ -40,8 +40,26 @@ public abstract class BaseService<T> {
         }
         return result;
     }
-    public SqlSession getSqlSession(){
+
+    public SqlSession getSqlSession() {
         return sqlSessionFactory.openSession(true);
+    }
+
+
+    /**
+     * 事务包裹
+     */
+    public <R> R transaction(Function<T, R> function) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        T mapper = sqlSession.getMapper(mapperClazz);
+        R result = null;
+        try {
+            result = function.apply(mapper);
+        } catch (Exception e) {
+            sqlSession.rollback();
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

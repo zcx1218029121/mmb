@@ -1,5 +1,0 @@
-com\mmb\core\BaseService.class
-com\mmb\beans\BeanWrapper.class
-com\mmb\beans\config\BeanDefinition.class
-com\mmb\core\DefaultDbRegistry.class
-com\mmb\beans\support\DaoDefinitionReader.class

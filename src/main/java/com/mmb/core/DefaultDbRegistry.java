@@ -3,11 +3,11 @@ package com.mmb.core;
 import com.mmb.beans.BeanWrapper;
 import com.mmb.beans.config.BeanDefinition;
 import com.mmb.beans.support.DaoDefinitionReader;
-import org.apache.ibatis.session.*;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,7 +33,7 @@ public enum DefaultDbRegistry {
     }
 
     public DefaultDbRegistry init(String scanPackage, String path) {
-        Bug fix
+
         DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
         try {
             doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());

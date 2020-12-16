@@ -24,8 +24,13 @@ defaultDbRegistry.init("{daoService 所在的包名}",sqlSessionFactory);
 TestService testService = (TestService) defaultDbRegistry.getBean(TestService.class);
  
 ```
-1.配置daoService所在的包名
-2.配置sqlSessionFactory 工厂
+1. 配置daoService所在的包名
+2. 配置sqlSessionFactory 工厂
+```java
+   DefaultDbRegistry.instance.init("app.dao", "/mybatis-config.xml");
+```
+1. 配置daoService所在的包名
+2. 配置mybatis配置文件
 ### 1.3 使用
 不开启事务
 ```java
@@ -41,7 +46,11 @@ TestService testService = (TestService) defaultDbRegistry.getBean(TestService.cl
             throw new RuntimeException("errrrrrrrrrrrrr");
         });
 ```
-1.所有daoService run方法 会传入一个mapper并自动关闭和提交 session 
-2.所有daoService transaction方法会传入一个mapper并自动关闭和提交 session 如果抛出Exception会自动回滚
-## 注意
-目前版本因为只支持实现类直接继承BaseService,和一个Service一个实现
+1. 所有daoService run方法 会传入一个mapper并自动关闭和提交 session 
+2. 所有daoService transaction方法会传入一个mapper并自动关闭和提交 session 如果抛出Exception会自动回滚
+## todo
+- [x] 简单的事务
+- [x] 根据泛型获取mapper
+- [x] 根据接口自动,找到实现类
+- [ ] 多实现类配置
+- [ ]  daoService在多继承的情况下也能正确装配

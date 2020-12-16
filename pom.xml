@@ -12,6 +12,7 @@
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
         <version>3.5.5</version>
+        <scope>provided</scope>
     </dependency>
 </dependencies>
 </project>

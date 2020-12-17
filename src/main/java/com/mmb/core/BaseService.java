@@ -55,11 +55,11 @@ public abstract class BaseService<T> {
         R result = null;
         try {
             result = function.apply(mapper);
+            sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             sqlSession.close();
         }
         return result;

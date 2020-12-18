@@ -22,4 +22,12 @@ public class BeanDefinition {
     public void setBeanClassName(String beanClassName) {
         this.beanClassName = beanClassName;
     }
+
+    @Override
+    public String toString() {
+        return "BeanDefinition{" +
+                "factoryBeanName='" + factoryBeanName + '\'' +
+                ", beanClassName='" + beanClassName + '\'' +
+                '}';
+    }
 }

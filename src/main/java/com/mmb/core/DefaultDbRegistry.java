@@ -20,8 +20,8 @@ public enum DefaultDbRegistry {
     // 枚举单例
     instance;
 
-    public DefaultDbRegistry init(String scanPackage, SqlSessionFactory sqlSessionFactory) {
-        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
+    public DefaultDbRegistry init(String scanPackage, SqlSessionFactory sqlSessionFactory,Class<?> runClass) {
+        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage,runClass);
         try {
             doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());
             doCreateBean();
@@ -32,9 +32,9 @@ public enum DefaultDbRegistry {
         return this;
     }
 
-    public DefaultDbRegistry init(String scanPackage, String path) {
+    public DefaultDbRegistry init(String scanPackage, String path,Class<?> runClass) {
 
-        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
+        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage,runClass);
         try {
             doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());
             doCreateBean();
@@ -53,10 +53,12 @@ public enum DefaultDbRegistry {
 
 
     private void doRegisterBeanDefinition(List<BeanDefinition> beanDefinitions) throws Exception {
+
         for (BeanDefinition beanDefinition : beanDefinitions) {
-            if (this.beanDefinitionMap.containsKey(beanDefinition.getFactoryBeanName())) {
-                throw new Exception("The" + beanDefinition.getFactoryBeanName() + "is exists!!");
-            }
+//            System.err.println(beanDefinition);
+//            if (this.beanDefinitionMap.containsKey(beanDefinition.getFactoryBeanName())) {
+//                throw new Exception("The" + beanDefinition.getFactoryBeanName() + "is exists!!");
+//            }
             this.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(), beanDefinition);
             this.beanDefinitionMap.put(beanDefinition.getBeanClassName(), beanDefinition);
         }

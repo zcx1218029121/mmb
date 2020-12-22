@@ -22,8 +22,23 @@ public class DaoDefinitionReader {
 
     public DaoDefinitionReader(String scanPackage, Class<?> runClass) {
 
-        URL url = runClass.getResource("");
-        String protocol = url.getProtocol();
+        String protocol = runClass.getResource("").getProtocol();
+        switch (protocol) {
+            case "file":
+                doScanner(scanPackage);
+                break;
+            case "jar":
+                doScannerJar(scanPackage);
+                break;
+            default:
+                throw new RuntimeException("err");
+        }
+
+    }
+
+    public DaoDefinitionReader(String scanPackage) {
+
+        String protocol = Thread.currentThread().getContextClassLoader().getResource("").getProtocol();
         switch (protocol) {
             case "file":
                 doScanner(scanPackage);

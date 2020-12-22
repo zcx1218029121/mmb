@@ -1,6 +1,10 @@
 # mmb
 一个简单的非spring环境下的mybatis封装
 
+
+① 所有自动装配的beanbean 都是单例的无需担心反复初始化的问题。
+② 所有services应该直接继承于 BaseService 泛型为mapper(目前没有实现递归向上实现的方式 主要是对泛型的了解还不够深入)
+
 ## 1.如何使用
 
 ### 1.1 创建daoService

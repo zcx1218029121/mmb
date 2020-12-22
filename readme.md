@@ -30,14 +30,12 @@ TestService testService = (TestService) defaultDbRegistry.getBean(TestService.cl
    DefaultDbRegistry.instance.init("app.dao", "/mybatis-config.xml");
 ```
 1. 配置daoService所在的包名
-2. 配置mybatis配置文件
+2. 配置mybatis配置文件在Resource中的位置
 ### 1.3 使用
 不开启事务
 ```java
  testService.run(TaskMapper::initTask).forEach(System.err::println);
 ```
-
-
 开启事务 
 ```java
        testService.transaction(testMapper -> {

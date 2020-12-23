@@ -1,6 +1,10 @@
 # mmb
 一个简单的非spring环境下的mybatis封装
 
+
+① 所有自动装配的beanbean 都是单例的无需担心反复初始化的问题。
+② 所有services应该直接继承于 BaseService 泛型为mapper(目前没有实现递归向上实现的方式 主要是对泛型的了解还不够深入)
+
 ## 1.如何使用
 
 ### 1.1 创建daoService
@@ -30,14 +34,12 @@ TestService testService = (TestService) defaultDbRegistry.getBean(TestService.cl
    DefaultDbRegistry.instance.init("app.dao", "/mybatis-config.xml");
 ```
 1. 配置daoService所在的包名
-2. 配置mybatis配置文件
+2. 配置mybatis配置文件在Resource中的位置
 ### 1.3 使用
 不开启事务
 ```java
  testService.run(TaskMapper::initTask).forEach(System.err::println);
 ```
-
-
 开启事务 
 ```java
        testService.transaction(testMapper -> {

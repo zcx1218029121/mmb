@@ -20,18 +20,6 @@ public enum DefaultDbRegistry {
     // 枚举单例
     instance;
 
-    public DefaultDbRegistry init(String scanPackage, SqlSessionFactory sqlSessionFactory,Class<?> runClass) {
-        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage,runClass);
-        try {
-            doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());
-            doCreateBean();
-            this.sqlSessionFactory = sqlSessionFactory;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return this;
-    }
-
     public DefaultDbRegistry init(String scanPackage, SqlSessionFactory sqlSessionFactory) {
         DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
         try {
@@ -44,23 +32,10 @@ public enum DefaultDbRegistry {
         return this;
     }
 
+
     public DefaultDbRegistry init(String scanPackage, String path) {
 
         DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage);
-        try {
-            doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());
-            doCreateBean();
-            InputStream is = Object.class.getResourceAsStream("/mybatis-config.xml");
-            this.sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return this;
-    }
-
-    public DefaultDbRegistry init(String scanPackage, String path,Class<?> runClass) {
-
-        DaoDefinitionReader daoDefinitionReader = new DaoDefinitionReader(scanPackage,runClass);
         try {
             doRegisterBeanDefinition(daoDefinitionReader.loadBeanDefinitions());
             doCreateBean();

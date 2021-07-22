@@ -6,6 +6,22 @@
 ② 所有services应该直接继承于 BaseService 泛型为mapper(目前没有实现递归向上实现的方式 主要是对泛型的了解还不够深入)
 
 ## 1.如何使用
+```
+
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://www.jitpack.io</url>
+		</repository>
+	</repositories>
+```
+
+	<dependency>
+	    <groupId>com.github.zcx1218029121</groupId>
+	    <artifactId>mmb</artifactId>
+	    <version>Tag</version>
+	</dependency>
+
 
 ### 1.1 创建daoService
 
